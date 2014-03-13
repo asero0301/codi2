@@ -1,0 +1,407 @@
+<?
+/*¦¬[ ÇÁ·Î±×·¥  Á¤º¸ ]¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¯
+¦­ ÇÁ·Î±×·¥ : CMySQL (MySQL class) Ver 1.05                                 ¦­
+¦­ ÀÛ ¼º ÀÚ : ÀÌ±¤Ã¶ (µû½ÄÀÌ)                                               ¦­
+¦­ È­ÀÏÀÌ¸§ : CMySQL.inc.php                                                ¦­
+¦­ ¼³    ¸í : MySQL Å¬·¡½º                                                  ¦­
+¦­ »ç¿ë¾ð¾î : PHP                                                           ¦­
+¦±¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦°
+
+¦®¦¬[ º¯°æÀÌ·Â ]¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¯
+¦­ ÀÛ¾÷ÀÚ ÀÛ  ¾÷  ÀÏ º¯°æ³»¿ë                                               ¦­
+¦­ ------ ---------- ------------------------------------------------------ ¦­
+¦­ ÀÌ±¤Ã¶ 2004.05.21 ÃÖÃÊÀÛ¼º                                               ¦­
+¦­ ÀÌ±¤Ã¶ 2007.02.09 ÁÖ¼®ÀÛ¾÷                                               ¦­
+¦±¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬*/
+
+
+
+function GetMicrotime($old, $new) 
+{
+	// ÁÖ¾îÁø ¹®ÀÚ¿­À» ³ª´® (sec, msecÀ¸·Î ³ª´©¾îÁü) 
+	$old = explode(" ", $old); 
+	$new = explode(" ", $new); 
+
+	$time[msec] = $new[0] - $old[0]; 
+	$time[sec]  = $new[1] - $old[1]; 
+
+	if($time[msec] < 0)
+	{
+		$time[msec] = 1.0 + $time[msec]; 
+		$time[sec]--; 
+	}
+
+	$time = sprintf("%.2f", $time[sec] + $time[msec]); 
+
+	return $time; 
+}
+
+
+
+class CMySQL
+{
+	var $host, $id, $password, $db, $port;
+	var $oldhost, $olddb, $conn;
+	var $mbuff;
+
+	function CMySQL()
+	{
+		$this->oldhost = "";
+		$this->id      = "";
+		$this->pass    = "";
+		$this->db      = "";
+
+		$this->mbuff   = array();
+		$this->conn = null;
+	}
+
+
+
+	/*¦¬[ ÇÔ¼ö¼³¸í ]¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¯
+	¦­ ÇÔ ¼ö ¸í : function CMySQL::close()                                      ¦­
+	¦­ ¼³    ¸í : MySQL»ç¿ë Á¾·á (¼ÒÄÏ´Ý±â)                                     ¦­
+	¦±¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬*/
+
+	function close()
+	{
+		if($this->conn == null)
+			return;
+
+		$this->oldhost = "";
+		$this->id      = "";
+		$this->pass    = "";
+		$this->db      = "";
+
+		$this->port    = 3306;
+		mysql_close($this->conn);
+		unset($this->conn);
+
+		$this->conn = null;
+	}
+
+
+
+	/*¦¬[ ÇÔ¼ö¼³¸í ]¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¯
+	¦­ ÇÔ ¼ö ¸í : function CMySQL::set()                                        ¦­
+	¦­ ¼³    ¸í : MySQL»ç¿ëÀ» À§ÇÑ ¼³Á¤ (½ÇÁ¦ ¿¬°áÀº ÇÏÁö ¾Ê°í ÁØºñ)            ¦­
+	¦­ ÀÔ ·Â °ª : $host     = ¼­¹öÁÖ¼Ò (localhost, www.test.com, ¾ÆÀÌÇÇ)        ¦­
+	¦­            $id       = ¾ÆÀÌµð                                            ¦­
+	¦­            $password = ºñ¹Ð¹øÈ£                                          ¦­
+	¦­            $db       = Á¢¼Ó°ú µ¿½Ã¿¡ »ç¿ëÇÒ µ¥ÀÌÅ¸º£ÀÌ½º¸í               ¦­
+	¦­            $port     = Æ÷Æ®¹øÈ£                                          ¦­
+	¦±¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬*/
+
+	function set($host, $id, $password, $db, $port = 3306)
+	{
+		if($host == $this->oldhost && $db == $this->olddb)
+			return;
+	
+		$this->close();
+	
+		$this->host = $host;
+		$this->id   = $id;
+		$this->pass = $password;
+		$this->db   = $db;
+		$this->port = $port;
+
+		$this->oldhost = $host;
+		$this->olddb   = $db;
+	}
+
+
+
+	/*¦¬[ ÇÔ¼ö¼³¸í ]¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¯
+	¦­ ÇÔ ¼ö ¸í : function CMySQL::open()                                       ¦­
+	¦­ ¼³    ¸í : µ¥ÀÌÅ¸º£ÀÌ½º ¼­¹ö¿¡ ¿¬°á                                      ¦­
+	¦±¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬*/
+
+	function open()
+	{
+		if($this->conn != null)
+			return;
+print __FILE__ . __LINE__ . "host:" . $this->host . "<br>"; 
+print __FILE__ . __LINE__ . "id:" . $this->id . "<br>"; 
+print __FILE__ . __LINE__ . "pass:" . $this->pass . "<br>"; 
+print __FILE__ . __LINE__ . "db:" . $this->db . "<br>"; 
+//TODO TEMPCODE
+$this->id = "root";
+$this->pass = "";
+$this->db = "master";
+print __FILE__ . __LINE__ . "host:" . $this->host . "<br>"; 
+print __FILE__ . __LINE__ . "id:" . $this->id . "<br>"; 
+print __FILE__ . __LINE__ . "pass:" . $this->pass . "<br>"; 
+print __FILE__ . __LINE__ . "db:" . $this->db . "<br>"; 
+
+
+		$this->conn = mysql_connect($this->host, $this->id, $this->pass) or die("exit");
+		mysql_select_db($this->db, $this->conn);
+
+//print __FILE__ . __LINE__ . "<br>";  exit;
+//		register_shutdown_function($this->close);
+	}
+
+
+
+	/*¦¬[ ÇÔ¼ö¼³¸í ]¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¯
+	¦­ ÇÔ ¼ö ¸í : function CMySQL::query()                                      ¦­
+	¦­ ¼³    ¸í : ¼­¹ö¿¡ ¿¬°á¿Ï·áÈÄ Äõ¸® Àü¼Û                                   ¦­
+	¦­ ÀÔ ·Â °ª : $str      = Äõ¸® ¹®ÀÚ¿­                                       ¦­
+	¦­ ¸® ÅÏ °ª : °á°ú µ¥ÀÌÅ¸ (fetchRow, fetchÇÔ¼ö¸¦ ÀÌ¿ëÇÏ¿© »ç¿ë)             ¦­
+	¦±¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬*/
+
+	// ½ÇÁ¦ Äõ¸®¸¦ ³¯¸°´Ù
+	function query($str)
+	{
+		$ret = null;
+
+		if($this->conn == null)
+			return null;
+
+		if(strlen($str) < 1)
+			return null;
+
+		$start = microtime();
+		$ret = mysql_query($str, $this->conn);
+		$ftime = GetMicrotime($start, microtime());
+
+		if($ftime >= 1)
+		{
+			$fp = fopen(MYSQL_LOG_DIR."/query_delay/".date("Y-m-d").".log", "a");
+			fputs($fp, "=== [".date("Y/m/d H:i:s")."] =========================== [¼öÇà½Ã°£: ".$ftime."]======================\n");
+			fputs($fp, $str."\n");
+			fputs($fp, "===========================================================================================\n\n");
+			fclose($fp);
+
+			chmod(MYSQL_LOG_DIR."/query_delay/".date("Y-m-d").".log", 0777);
+		}
+
+		if ( mysql_errno() || mysql_error() )
+		{
+			echo mysql_errno() . " : " . mysql_error();
+
+			$fp = fopen(MYSQL_LOG_DIR."/query_error/".date("Y-m-d").".log", "a");
+			fputs($fp, "=== [".date("Y/m/d H:i:s")."] =================================================================\n");
+			fputs($fp, "filename: $_SERVER[REQUEST_URI]\n");
+			fputs($fp, $str."\n");
+			fputs($fp, "------------------------------------------------------------------------------------------\n");
+			fputs($fp, mysql_errno()." : ".mysql_error()."\n");
+			fputs($fp, "===========================================================================================\n\n");
+			fclose($fp);
+
+			chmod(MYSQL_LOG_DIR."/query_error/".date("Y-m-d").".log", 0777);
+		}
+
+		return $ret;
+	}
+
+
+
+	/*¦¬[ ÇÔ¼ö¼³¸í ]¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¯
+	¦­ ÇÔ ¼ö ¸í : function CMySQL::fetchRow()                                   ¦­
+	¦­ ¼³    ¸í : query·Î ¹Þ¾Æ¿Â µ¥ÀÌÅ¸¸¦ °¡°øÇÏ¿© ¹è¿­¿¡ ³Ö±â                  ¦­
+	¦­            $res = query("SELECT idx, name, jumin FROM member_info");     ¦­
+	¦­            while(($row = fetchRow($res)))                                ¦­
+	¦­            {                                                             ¦­
+	¦­                echo $row[0]."/".$row[1];  // $row["name"] (x)            ¦­
+	¦­            }                                                             ¦­
+	¦­                                                                          ¦­
+	¦­            freeResult($res) // ¸Þ¸ð¸® ¹ÝÈ¯ (¹Ýµå½Ã ¸ðµÎ »ç¿ëÈÄ¿¡ È£Ãâ)   ¦­
+	¦­                                                                          ¦­
+	¦­ ÀÔ ·Â °ª : $res  = Äõ¸® ¹®ÀÚ¿­                                           ¦­
+	¦­ ¸® ÅÏ °ª : ¹è¿­ µ¥ÀÌÅ¸ (»ç¿ë½Ã ¹®ÀÚ¿­Àº »ç¿ëÇÏÁö ¸øÇÔ)                   ¦­
+	¦±¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬*/
+
+	function fetchRow($res)
+	{
+		if($res == null)
+			return null;
+
+		return mysql_fetch_row($res);
+	}
+
+
+
+	/*¦¬[ ÇÔ¼ö¼³¸í ]¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¯
+	¦­ ÇÔ ¼ö ¸í : function CMySQL::fetch()                                      ¦­
+	¦­ ¼³    ¸í : query·Î ¹Þ¾Æ¿Â µ¥ÀÌÅ¸¸¦ °¡°øÇÏ¿© ¹è¿­¿¡ ³Ö±â                  ¦­
+	¦­            $res = query("SELECT idx, name, jumin FROM member_info");     ¦­
+	¦­            while(($row = fetchRow($res)))                                ¦­
+	¦­            {                                                             ¦­
+	¦­                echo $row[0]."/".$row["name"];  // $row["name"] (o)       ¦­
+	¦­            }                                                             ¦­
+	¦­                                                                          ¦­
+	¦­            freeResult($res) // ¸Þ¸ð¸® ¹ÝÈ¯ (¹Ýµå½Ã ¸ðµÎ »ç¿ëÈÄ¿¡ È£Ãâ)   ¦­
+	¦­ ÀÔ ·Â °ª : $res  = Äõ¸® ¹®ÀÚ¿­                                           ¦­
+	¦­ ¸® ÅÏ °ª : ¹è¿­ µ¥ÀÌÅ¸ (¹®ÀÚ¿­ »ç¿ë °¡´É)                                ¦­
+	¦±¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬*/
+
+	function fetch($res)
+	{
+		if($res == null)
+			return null;
+
+		return 	mysql_fetch_assoc($res);
+	}
+
+
+
+	function rand($start, $end)
+	{
+		$end = ($end-$start+1);
+		return "rand()*".$end."%".$end."+".$start;
+	}
+
+
+
+	function addslashes($str)
+	{
+		return ereg_replace("('|\\\)", "\\\\1", $str);
+	}
+
+
+
+	function seek($res, $pos)
+	{
+		if($res == null)
+			return null;
+
+		if($this->numRows($res) < 1)
+			return null;
+
+		if($pos >= $this->numRows($res))
+			$pos = $this->numRows($res) - 1;
+
+		return mysql_data_seek($res, $pos);
+	}
+
+
+
+	/*¦¬[ ÇÔ¼ö¼³¸í ]¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¯
+	¦­ ÇÔ ¼ö ¸í : function CMySQL::count()                                      ¦­
+	¦­ ¼³    ¸í : °¡Á®¿Ã ÇÊµå°¡ ÇÏ³ªÀÌ¸ç ¼ýÀÚ·ÎµÈ °æ¿ìÀÏ¶§ »ç¿ë                 ¦­
+	¦­ ÀÔ ·Â °ª : $str      = Äõ¸® ¹®ÀÚ¿­                                       ¦­
+	¦­ ¸® ÅÏ °ª : °á°ú µ¥ÀÌÅ¸                                                   ¦­
+	¦±¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬*/
+
+	function count($str)
+	{
+		$row = $this->fetchRow($this->query($str));
+		if($row == null)
+			return 0;
+
+		return $row[0];
+	}
+
+
+
+	/*¦¬[ ÇÔ¼ö¼³¸í ]¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¯
+	¦­ ÇÔ ¼ö ¸í : function CMySQL::freeResult()                                 ¦­
+	¦­ ¼³    ¸í : result¿¡ ´ëÇÑ ¸Þ¸ð¸®(memory)¿¡ ÀÖ´Â ³»¿ëÀ» ¸ðµÎ Á¦°ÅÇÑ´Ù.     ¦­
+	¦±¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬*/
+
+	function freeResult($res)
+	{
+		if($res == null)
+			return;
+
+		mysql_free_result($res);
+	}
+	
+
+
+
+	/*¦¬[ ÇÔ¼ö¼³¸í ]¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¯
+	¦­ ÇÔ ¼ö ¸í : function CMySQL::numRows()                                    ¦­
+	¦­ ¼³    ¸í : °á°ú·ÎºÎÅÍ ¿­ °³¼ö¸¦ ¹ÝÈ¯                                     ¦­
+	¦­ ¸® ÅÏ °ª : ¿­ °³¼ö                                                       ¦­
+	¦±¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬*/
+
+	function numRows($res)
+	{
+		if($res == null)
+			return 0;
+
+		return mysql_num_rows($res);
+	}
+
+
+
+	/*¦¬[ ÇÔ¼ö¼³¸í ]¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¯
+	¦­ ÇÔ ¼ö ¸í : function CMySQL::affectedRows()                               ¦­
+	¦­ ¼³    ¸í : ÃÖ±Ù ½ÇÇàµÈ INSERT, UPDATE, DELETE ÁúÀÇ·Î Ã³¸®µÈ ÇàÀÇ °³¼ö¹ÝÈ¯¦­
+	¦­            ¸¶Áö¸· ÁúÀÇ°¡ WHERE ÀýÀÌ ¾ø´Â DELETE ÁúÀÇ¶ó¸é,                ¦­
+	¦­            Å×ÀÌºíÀÇ ¸ðµç ·¹ÄÚµå°¡ »èÁ¦µÇ´õ¶óµµ ÀÌ ÇÔ¼ö´Â 0°ªÀ» µ¹·ÁÁØ´Ù. ¦­
+	¦­            ÀÌ ÇÔ¼ö´Â SELECT ¹®¿¡´Â µ¿ÀÛÇÏÁö ¾ÊÀ¸¸ç, ·¹ÄÚµå°¡ ¼öÁ¤µÇ´Â    ¦­
+	¦­            °æ¿ì¿¡¸¸ µ¿ÀÛÇÑ´Ù.                                            ¦­
+	¦­            SELECT ±¸¹®À¸·ÎºÎÅÍ µ¹·Á¹ÞÀº ÁÙÀÇ °³¼ö¸¦ ¾òÀ¸·Á¸é,            ¦­
+	¦­            numRows()¸¦ ¾²¸é µÈ´Ù.                                        ¦­
+	¦­ ¸® ÅÏ °ª : º¯°æµÈ ·¹ÄÚÀÇ ¼ö                                              ¦­
+	¦±¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬*/
+
+	function affectedRows()
+	{
+		if($this->conn == null)
+			return 0;
+
+		return mysql_affected_rows($this->conn);
+	}
+
+
+
+	/*¦¬[ ÇÔ¼ö¼³¸í ]¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¯
+	¦­ ÇÔ ¼ö ¸í : function CMySQL::fetch()                                      ¦­
+	¦­ ¼³    ¸í : ÃÖ±Ù INSERT ÀÛ¾÷À¸·ÎºÎÅÍ »ý¼ºµÈ identifier °ªÀ» ¹ÝÈ¯          ¦­
+	¦­ ¸® ÅÏ °ª : identifier °ª                                                 ¦­
+	¦±¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬¦¬*/
+
+	function lastInsertID()
+	{
+		return $this->count("SELECT LAST_INSERT_ID()");
+	}
+
+
+	function errstr()
+	{
+		if ( mysql_error() || mysql_error() )
+		{
+			return mysql_errno() . " : " . mysql_error();
+		}
+		else
+		{
+			return 0;
+		}
+	}
+
+
+
+	function mclear()
+	{
+		unset($this->mbuff);
+		$this->mbuff = array();
+	}
+
+
+	function mpush($str)
+	{
+		if(strlen($str) < 1)
+			return;
+
+		array_push($this->mbuff, $str);
+	}
+
+	function mquery()
+	{
+		if(count($this->mbuff) < 1)
+			return;
+
+		for($i=0; $i<count($this->mbuff); $i++)
+		{
+	//		$str = join($this->mbuff, ";");
+			$this->query($this->mbuff[$i]);
+		}
+
+		$this->mclear();
+	}
+}
+
+?>

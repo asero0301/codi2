@@ -1,0 +1,138 @@
+
+td {font-size:9pt; color: #7F7F7F;  font-family:"µ¸¿ò,±¼¸²,Arial";line-height: 14px; } 
+A:link {color:#5E5E5E;font-size:9pt;text-decoration:none} 
+A:visited {color:#5E5E5E;font-size:9pt;text-decoration:none} 
+A:active {color:#5E5E5E;font-size:9pt; text-decoration:none} 
+A:hover {color:#000000; font-size:9pt;; text-decoration:none} 
+
+
+
+
+
+.evmem a:link {FONT-SIZE: 11px; COLOR: #D3D3D3; padding-top:3px; LETTER-SPACING: -1px; }
+.evmem a:visited { FONT-SIZE: 11px; COLOR: #D3D3D3; padding-top:3px; LETTER-SPACING: -1px;}
+.evmem a:active { FONT-SIZE: 11px; COLOR: #D3D3D3; padding-top:3px; LETTER-SPACING: -1px; }
+.evmem a:hover { FONT-SIZE: 11px; COLOR: #00FFEA; padding-top:3px; LETTER-SPACING: -1px; }
+.evmem {FONT-SIZE: 11px; COLOR: #D3D3D3; padding-top:3px; LETTER-SPACING: -1px; }
+
+
+
+
+
+
+
+body {
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+	
+}
+
+
+a {  selector-dummy : expression(this.hideFocus=true); }
+
+
+.logbox {BORDER-RIGHT: #C8C8C8 1px solid; BORDER-TOP: #C8C8C8 1px solid; FONT-SIZE: 11px; BORDER-LEFT: #C8C8C8 1px solid; COLOR: #8F8F8F; BORDER-BOTTOM: #C8C8C8 1px solid; FONT-FAMILY: Verdana; background-color: #FEFEFE; height:20px;padding-top:3px;}
+
+
+.memobox {BORDER-RIGHT: #C8C8C8 1px solid; BORDER-TOP: #C8C8C8 1px solid; FONT-SIZE: 12px; BORDER-LEFT: #C8C8C8 1px solid; COLOR: #8F8F8F; BORDER-BOTTOM: #C8C8C8 1px solid; FONT-FAMILY: Verdana; background-color: #FEFEFE; height:68px;padding-top:3px;}
+
+
+
+
+
+
+.evgray a:link {FONT-SIZE: 11px; COLOR: #494949; font-family:"µ¸¿ò,Arial"; padding-top:5px; LETTER-SPACING: -1px; line-height: 14px;}
+.evgray a:visited { FONT-SIZE: 11px; COLOR: #494949; font-family:"µ¸¿ò,Arial"; padding-top:5px; LETTER-SPACING: -1px;line-height: 14px;}
+.evgray a:active { FONT-SIZE: 11px; COLOR: #494949; font-family:"µ¸¿ò,Arial"; padding-top:5px; LETTER-SPACING: -1px; line-height: 14px;}
+.evgray a:hover { FONT-SIZE: 11px; COLOR: #494949; font-family:"µ¸¿ò,Arial"; padding-top:5px; LETTER-SPACING: -1px; line-height: 14px;}
+.evgray { FONT-SIZE: 11px; COLOR: #494949; font-family:"µ¸¿ò,Arial"; padding-top:5px; LETTER-SPACING: -1px; line-height: 14px;}
+
+.evfont { FONT-SIZE: 11px; COLOR: #494949; font-family:"µ¸¿ò,Arial";}
+
+
+
+.date {
+	FONT-SIZE: 11px; COLOR: #494949; font-family:"±¼¸²,Arial";
+}
+
+
+
+.nomber {
+	FONT-SIZE: 10px; COLOR: #494949; font-family:"Arial";
+}
+
+
+.shopname a:link {FONT-SIZE: 11px; COLOR: #494949; font-family:"µ¸¿ò,Arial"; padding-top:5px; line-height: 14px;}
+.shopname a:visited { FONT-SIZE: 11px; COLOR: #494949; font-family:"µ¸¿ò,Arial"; padding-top:5px; line-height: 14px;}
+.shopname a:active { FONT-SIZE: 11px; COLOR: #494949; font-family:"µ¸¿ò,Arial"; padding-top:5px; line-height: 14px;}
+.shopname a:hover { FONT-SIZE: 11px; COLOR: #FF5B5C; font-family:"µ¸¿ò,Arial"; padding-top:5px; line-height: 14px;}
+
+.tienom a:link {FONT-SIZE: 11px; COLOR: #494949; font-family:"µ¸¿ò,Arial"; padding-top:3px; line-height: 14px;}
+.tienom a:visited { FONT-SIZE: 11px; COLOR: #494949; font-family:"µ¸¿ò,Arial"; padding-top:3px; line-height: 14px;}
+.tienom a:active { FONT-SIZE: 11px; COLOR: #494949; font-family:"µ¸¿ò,Arial"; padding-top:3px; line-height: 14px;}
+.tienom a:hover { FONT-SIZE: 11px; COLOR: #494949; font-family:"µ¸¿ò,Arial"; padding-top:3px;  line-height: 14px;}
+.tienom { FONT-SIZE: 11px; COLOR: #494949; font-family:"µ¸¿ò,Arial"; padding-top:3px; line-height: 14px;}
+
+.textlevel { FONT-SIZE: 24px; COLOR: #FF0078; font-family:"µ¸¿ò,Arial"; padding-top:3px; line-height: 28px; Font-weight: bold}
+
+
+
+.bignom { FONT-SIZE: 30px; COLOR: #00A814; font-family:"Arial";line-height: 40px; Font-weight: bold}
+
+
+.goodcss {BORDER-RIGHT: #C6C6C6 1px solid; BORDER-TOP: #B2B2B2 1px solid; FONT-SIZE: 12px; BORDER-LEFT: #B2B2B2 1px solid; COLOR: #383838; BORDER-BOTTOM: #C6C6C6 1px solid; FONT-FAMILY: µ¸¿ò; background-color: #D6D4D5;padding-top:1;width:100%; height:18px;}
+
+.nowidthgoodcss {BORDER-RIGHT: #C6C6C6 1px solid; BORDER-TOP: #B2B2B2 1px solid; FONT-SIZE: 12px; BORDER-LEFT: #B2B2B2 1px solid; COLOR: #383838; BORDER-BOTTOM: #C6C6C6 1px solid; FONT-FAMILY: µ¸¿ò; background-color: #D6D4D5;padding-top:1; height:18px;}
+
+
+.stext {
+	FONT-SIZE: 11px; COLOR: #696868;  font-family:"µ¸¿ò,Arial";
+}
+
+.stextbold {
+	FONT-SIZE: 11px; COLOR: #696868;  font-family:"µ¸¿ò,Arial"; Font-weight: bold;
+}
+
+
+
+
+
+
+
+
+
+
+.logboxcss {BORDER-RIGHT: #C6C6C6 1px solid; BORDER-TOP: #B2B2B2 1px solid; FONT-SIZE: 12px; BORDER-LEFT: #B2B2B2 1px solid; COLOR: #383838; BORDER-BOTTOM: #C6C6C6 1px solid; FONT-FAMILY: µ¸¿ò; background-color: #D6D4D5;padding-top:1;width:98%; height:20px;}
+
+
+
+.textarea {BORDER-RIGHT: #CBCBCB 1px solid; BORDER-TOP: #CBCBCB 1px solid; FONT-SIZE: 11px; BORDER-LEFT: #CBCBCB 1px solid; COLOR: #8F8F8F; BORDER-BOTTOM: #CBCBCB 1px solid; FONT-FAMILY: Verdana; background-color: #FFFFFF; width:85; height:19px;}
+
+.textarea02 {BORDER-RIGHT: #CBCBCB 1px solid; BORDER-TOP: #CBCBCB 1px solid; FONT-SIZE: 11px; BORDER-LEFT: #CBCBCB 1px solid; COLOR: #333333; BORDER-BOTTOM: #CBCBCB 1px solid; FONT-FAMILY: Verdana; background-color: #FFFFFF; width:152; height:19px;}
+
+.textarea03 {BORDER-RIGHT: #404040 0px solid; BORDER-TOP: #404040 0px solid; FONT-SIZE: 12px; BORDER-LEFT: #404040 0px solid; COLOR: #FFFFFF; BORDER-BOTTOM: #404040 0px solid; FONT-FAMILY: µ¸¿ò; background-color: #B76D47;padding-top:1;font-weight:bold; }
+
+.textarea04 {LETTER-SPACING: -1px; BORDER-RIGHT: #C6C6C6 1px solid;BORDER-TOP: #C6C6C6 1px solid;BORDER-LEFT: #C6C6C6 1px solid;BORDER-BOTTOM: #C6C6C6 1px solid; SCROLLBAR-FACE-COLOR: #dcdcdc; FONT-SIZE: 11px;  SCROLLBAR-HIGHLIGHT-COLOR: #ffffff; SCROLLBAR-SHADOW-COLOR: #ffffff; COLOR: #666666; SCROLLBAR-3DLIGHT-COLOR: #bbbbbb; LINE-HEIGHT: 16px; SCROLLBAR-ARROW-COLOR: #626262; SCROLLBAR-TRACK-COLOR: #efefef; FONT-FAMILY: µ¸¿ò, Dotum; SCROLLBAR-DARKSHADOW-COLOR: #bbbbbb; width:100%; padding:15 15 15 15}
+
+.textarea05 {BORDER-RIGHT: #C6C6C6 1px solid; BORDER-TOP: #B2B2B2 1px solid; FONT-SIZE: 12px; BORDER-LEFT: #B2B2B2 1px solid; COLOR: #383838; BORDER-BOTTOM: #C6C6C6 1px solid; FONT-FAMILY: µ¸¿ò; background-color: #D6D4D5;padding-top:1;width:100%; height:18px;}
+
+
+.textarea06 {BORDER-RIGHT: #C6C6C6 1px solid; BORDER-TOP: #C6C6C6 1px solid; FONT-SIZE: 11px; BORDER-LEFT: #C6C6C6 1px solid; COLOR: #8F8F8F; BORDER-BOTTOM: #C6C6C6 1px solid; FONT-FAMILY: Verdana; background-color: #FEFEFE; height:18px;}
+.textarea07 {BORDER-RIGHT: #D4D4D4 1px solid; BORDER-TOP: #D4D4D4 1px solid; FONT-SIZE: 11px; BORDER-LEFT: #D4D4D4 1px solid; COLOR: #8F8F8F; BORDER-BOTTOM: #D4D4D4 1px solid; FONT-FAMILY: Verdana; background-color: #FEFEFE; height:18px;}
+
+.textareabb {LETTER-SPACING: -1px; BORDER-RIGHT: #C6C6C6 1px solid;BORDER-TOP: #C6C6C6 1px solid;BORDER-LEFT: #C6C6C6 1px solid;BORDER-BOTTOM: #C6C6C6 1px solid; SCROLLBAR-FACE-COLOR: #dcdcdc; FONT-SIZE: 11px;  SCROLLBAR-HIGHLIGHT-COLOR: #ffffff; SCROLLBAR-SHADOW-COLOR: #ffffff; COLOR: #666666; SCROLLBAR-3DLIGHT-COLOR: #bbbbbb; LINE-HEIGHT: 16px; SCROLLBAR-ARROW-COLOR: #626262; SCROLLBAR-TRACK-COLOR: #efefef; FONT-FAMILY: µ¸¿ò, Dotum; SCROLLBAR-DARKSHADOW-COLOR: #bbbbbb; width:120;}
+.textareacc {LETTER-SPACING: -1px; BORDER-RIGHT: #C6C6C6 1px solid;BORDER-TOP: #C6C6C6 1px solid;BORDER-LEFT: #C6C6C6 1px solid;BORDER-BOTTOM: #C6C6C6 1px solid; SCROLLBAR-FACE-COLOR: #dcdcdc; FONT-SIZE: 11px;  SCROLLBAR-HIGHLIGHT-COLOR: #ffffff; SCROLLBAR-SHADOW-COLOR: #ffffff; COLOR: #666666; SCROLLBAR-3DLIGHT-COLOR: #bbbbbb; LINE-HEIGHT: 16px; SCROLLBAR-ARROW-COLOR: #626262; SCROLLBAR-TRACK-COLOR: #efefef; FONT-FAMILY: µ¸¿ò, Dotum; SCROLLBAR-DARKSHADOW-COLOR: #bbbbbb; width:100%;}
+
+.notice a:link {color:#494949;  text-decoration:none; font-size: 12px;  font-family: "±¼¸²"}
+.notice a:visited { color:#494949;  text-decoration:none; font-size: 12px;  font-family: "±¼¸²"}
+.notice a:active { color:#494949;   text-decoration:none; font-size: 12px; font-family: "±¼¸²" }
+.notice a:hover { color:#000000;   text-decoration: underline; font-size: 12px;  font-family: "±¼¸²"}
+
+.title {
+	FONT-SIZE: 12px; COLOR: #3F3F3F; font-weight:bold;padding-top:3px;LETTER-SPACING: -1px;
+}
+
+
+

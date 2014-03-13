@@ -1,0 +1,86 @@
+/*====================
+  외각레이아웃
+====================*/
+div.divLayout{ position:absolute; width:150px; overflow:visible ; border:1px outset #999999;background-color:#f2f2f2;padding:5px; }
+/*====================
+  프레임
+====================*/
+table.taFrame{width:100%; border-collapse:collapse;}
+table.taFrame tr.taFrameTrHead{}
+table.taFrame td.taFrameTrHeadTdHead{}
+table.taFrame tr.taFrameTrBody{}
+table.taFrame td.taFrameTrHeadTdBody{}
+table.taFrame tr.taFrameTrFoot{}
+table.taFrame td.taFrameTrHeadTdFoot{}
+
+table.taFrame a{text-decoration:none; color:#333333;}
+table.taFrame a:hover{text-decoration:underline;}
+
+/*====================
+  메뉴
+====================*/
+table.taHead{  width:100%; font-size:12px;}
+table.taHead tr.taHeadTr0{ }
+table.taHead td.taHeadTr0Td0{ text-align:right;}
+table.taHead tr.taHeadTr1{ }
+table.taHead td.taHeadTr1Td0{ text-align:center; height:24px;}
+
+table.taHead a.aClose{margin:0 2px;}
+table.taHead a.aToday{margin:0 2px;}
+table.taHead input.iptYear{border:1px solid #cccccc; font-size:12px; text-align:center; padding:0; margin:0; width:40px;}
+table.taHead input.iptMonth{border:1px solid #cccccc; font-size:12px; text-align:center; padding:0; margin:0; width:20px;}
+
+table.taHead a.aButton{}
+
+/*====================
+  바닥글
+====================*/
+table.taFoot{ width:100%; font-size:10px; height:20px;}
+table.taFoot tr.taFootTr0{ }
+table.taFoot td.taFootTr0Td0{ text-align:right;}
+table.taFoot a.aLink{margin:0 2px;}
+
+/*====================
+  바디부분(달력)
+====================*/
+table.taBody{ background-color:#666666;   font-size:12px; border-collapse:separate;border:1px solid #666666; margin:0 auto;}
+table.taBody td{ line-height:150%; width:20px; border:1px solid #666666;}
+table.taBody a.aDate{ display:block;}
+table.taBody span{color:#cccccc;}
+table.taBody tr.taBodyTrHead{ }
+table.taBody tr.taBodyTrHead td{ color:#666666; text-align:center;  background-color:#cccccc;}
+table.taBody tr.taBodyTrHead td.tdSUN{color:#993333; background-color:#cc9999;}
+table.taBody tr.taBodyTrHead td.tdSAT{color:#003366; background-color:#9999cc;}
+table.taBody tr.taBodyTrDate{}
+table.taBody tr.taBodyTrDate td{ color:#666666; text-align:center;  background-color:#eeeeee;}
+table.taBody tr.taBodyTrDate td a{color:#333333;}
+table.taBody tr.taBodyTrDate td a:hover{ background-color:#bbbbbb;}
+table.taBody tr.taBodyTrDate td.tdToday{ border-color:#0099CC; background-color:#006699;}
+table.taBody tr.taBodyTrDate td.tdToday a{ color:#ffffff;}
+table.taBody tr.taBodyTrDate td.tdToday a:hover{ background-color:#3399cc;}
+table.taBody tr.taBodyTrDate td.tdSelectedDay{ border-color:#ccbbaa; background-color:#993333;}
+table.taBody tr.taBodyTrDate td.tdSelectedDay a{ color:#ffffff;}
+table.taBody tr.taBodyTrDate td.tdSelectedDay a:hover{ background-color:#cc3333;}
+table.taBody tr.taBodyTrDate td.tdSUN{color:#993333; background-color:#ccaaaa;}
+table.taBody tr.taBodyTrDate td.tdSUN a{color:#993333; background-color:#ccaaaa;}
+table.taBody tr.taBodyTrDate td.tdSUN a:hover{ background-color:#ffaaaa;}
+table.taBody tr.taBodyTrDate td.tdSAT{color:#003366; background-color:#aaaacc;}
+table.taBody tr.taBodyTrDate td.tdSAT a{color:#003366;}
+table.taBody tr.taBodyTrDate td.tdSAT a:hover{ background-color:#aaccff;}
+table.taBody tr.taBodyTrDate td.tdOrderDate{color:#CCCCCC; }
+table.taBody tr.taBodyTrDate td.tdOrderDate a{color:#CCCCCC;}
+table.taBody tr.taBodyTrDate td.tdOrderDate a:hover{ background-color:#bbbbbb;}
+table.taBody tr.taBodyTrDate td.tdOrderDateSUN{color:#CCCCCC; background-color:#ccaaaa;}
+table.taBody tr.taBodyTrDate td.tdOrderDateSUN a{color:#CCCCCC;}
+table.taBody tr.taBodyTrDate td.tdOrderDateSUN a:hover{ background-color:#ffaaaa;}
+table.taBody tr.taBodyTrDate td.tdOrderDateSAT{color:#CCCCCC; background-color:#aaaacc;}
+table.taBody tr.taBodyTrDate td.tdOrderDateSAT a{color:#CCCCCC;}
+table.taBody tr.taBodyTrDate td.tdOrderDateSAT a:hover{ background-color:#aaccff;}
+
+
+/*====================
+  추가적 설정을 할 경우
+====================*/
+
+div.divLayout2{ position:absolute; width:280px; overflow:visible ; border:1px outset #999999;background-color:#f2f2f2;padding:5px; }
+div.divLayout2 table.taBody td{ width:35px; height:35px;}

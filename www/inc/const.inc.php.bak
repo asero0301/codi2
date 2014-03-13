@@ -1,0 +1,156 @@
+<?php
+/*******************************************************
+ * author : Chan Hwang (gogisnim@gmail.com)
+ * file   : /coditop/inc/const.inc.php
+ * date   : 2008.08.07
+ * desc   : Const
+ *******************************************************/
+
+// coditop public CONST define
+
+$WEB_URL = "http://coditop.superboard.com/";
+$WEB_3RDBRAIN_URL = "http://www.3rdbrain.com/";
+
+$COMPANY_TEL_NUM = "02-2234-1777";
+
+
+$ADMIN_ID = "admin";
+
+$ADMIN_DIR = "/manage/";
+$ADMIN_AUTH = $ADMIN_DIR."index.php";
+$ADMIN_MAIN_URL = $ADMIN_DIR."product/wait_list.php";
+$ADMIN_TITLE = "Coditop10 Administrator";
+
+// board process CONST define
+$ADMIN_PAGE_SIZE = 20;
+$ADMIN_PAGE_BLOCK = 10;
+$REPLY_INDENT = 5;
+$PAGE_SIZE = 10;
+$PAGE_BLOCK = 10;
+
+$COMMENT_PAGE_SIZE = 10;
+$COMMENT_PAGE_BLOCK = 10;
+
+
+// 최대 샵등록갯수
+$SHOP_MAX_COUNT = 10;
+
+// main codi page
+$MAIN_CODI_PAGE_SIZE = 15;
+
+// 쪽지 보관갯수 한도 (100개)
+$MSG_FOREVER_LIMIT = 100;
+
+// 쪽지 유효기간 timestamp (30일)
+$MSG_USAGE_DAY = 30;
+
+// 평가대기중인 코디 page size
+$PRODUCT_CODI_PAGE_SIZE = 15;
+
+// 메인 TODAY 추천 코드
+$MAIN_TODAY_RECOM_PAGE_SIZE = 8;
+
+// SUB 오늘의 추천코디 한 페이지당 갯수
+$SUB_TODAY_RECOM_PAGE_SIZE = 5;
+
+// 공지사항의 "new" 아이콘 표시 기간(timestamp)
+$NOTICE_NEW_STAMP = 7 * 86400;
+
+// 신상품 기간(timestamp)
+$CODI_NEW_STAMP = 7 * 86400;
+
+// UCC의 "new" 아이콘 표시 기간(timestamp)
+$UCC_NEW_STAMP = 1 * 86400;
+
+// SHOP PR 의 "new" 아이콘 표시 기간(timestamp)
+$PR_NEW_STAMP = 1 * 86400;
+
+// 불량샵의 "new" 아이콘 표시 기간(timestamp)
+$BAD_NEW_STAMP = 1 * 86400;
+
+
+// file upload
+$UP_DIR = "/coditop/upload";
+$UP_URL = "/upload";
+
+// tpl
+$TPL_DIR = "/coditop/tpl";
+$TPL_URL = "/tpl";
+
+// default gift
+$DEFAULT_GIFT_STR = "등록 코디상품 일체";
+
+// banner array
+$BANNER_AREA = array (
+	"MAINT", "MAINB", "MAINL", "MAINR", 
+	"CODIT", "CODIB", "CODIL", "CODIR", 
+	"BOARDT", "BOARDB", "BOARDL", "BOARDR",
+	"JOINT", "JOINB", "JOINL", "JOINR",
+	"ETCT", "ETCB", "ETCL", "ETCR"
+);
+
+// product categ
+$P_CATEG = array (
+	"T" => "상의",
+	"B" => "하의",
+	"O" => "야외복",
+	"U" => "언더웨어",
+	"A" => "ACC"
+);
+
+// ucc categ
+$UCC_CATEG = array (
+	"A" => array ("코디평가","내코디를 평가해주세요"),
+	"B" => array ("코디의뢰","어떤 코디가 좋을까요?"),
+	"C" => array ("코디제안","코디를 제안드려요")
+);
+
+// faq categ
+$FAQ = array (
+	"FAQ_A" => "로그인/회원등록",
+	"FAQ_B" => "샵등록",
+	"FAQ_Z" => "기타"
+);
+
+// qna categ
+$QNA = array (
+	"QNA_A" => "로그인/회원등록",
+	"QNA_B" => "샵등록",
+	"QNA_Z" => "기타"
+);
+
+// tracking code
+$TRACKCODE = array (
+	"A" => "<b><font color='#CC3300'>확인</font></b>",
+	"B" => "<b><font color='#CC33CC'>발송대기</font></b>",
+	"C" => "<b><font color='#CC33DD'>발송완료</font></b>",
+	"D" => "<b><font color='#CC33EE'>수령확인중</font></b>",
+	"E" => "<b><font color='#DD2457'>완료</font></b>"
+);
+
+// coditop title
+$TITLE = "평가하고 경품받는 CODI TOP10 - 코디탑텐";
+
+$CASH_SUPPLY_MSG = "RECV_MEM_ID(RECV_MEM_NAME)님의 CPC 캐쉬 허용한도를 초과하였습니다.<br>캐쉬충전을 하시기 바랍니다";
+
+
+$CODI_CMT = array (
+	"로그인을 하셔야 평가참여가 가능합니다.",
+	"평가에 이미 참여하셨습니다. 하나의 코디상품에 1회만 평가참여가 가능합니다.",
+	"댓글평가를 입력한 후, 우측의 UP 또는 DOWN 을 클릭하면 등록이 완료됩니다.",
+	"해당 코디의 평가기간이 완료되었습니다."
+);
+
+
+// 캐쉬 충전시 코드별 금액/캐쉬/보너스캐쉬
+$CASHMONEY = array (
+	"M101" => array (5000, 5000, 0),
+	"M102" => array (10000, 10000, 500),
+	"M103" => array (30000, 30000, 1000),
+	"M104" => array (50000, 50000, 3000),
+	"M105" => array (100000, 100000, 5000)
+);
+
+// 무통장 입금 정보
+$BANKINFO = array("코디탑텐", "국민은행", "346-25-0012-766");
+?>

@@ -1,0 +1,107 @@
+<html>
+<head>
+	<title>평가하고 경품받는 CODI TOP10 - 코디탑텐</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=euc-kr">
+	<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width" />
+	<script type="text/javascript" src="jquery-1.10.2.min.js"></script>
+	<script type="text/javascript" src="json2.js"></script>
+
+<style>
+html {  overflow: hidden;  }
+html, body { width: 100%; height: 100%; margin: 0; padding: 0;}
+#wrapper{  width: 100%; height: 100%; position: absolute; overflow-y:scroll;}
+
+#content { 
+    width: 100%; height: 100%; 
+    margin-left: -17px; /* 우측 스크롤바가 보여야 하므로 17px만큼 외쪽으로 땡겨주기 */
+    padding-left: 17px; /* 좌측으로 들어간만큼 패딩값 지정 */
+    }
+
+#footer { 
+    overflow: hidden;
+    position: absolute;
+    bottom: 0; 
+    height: 50px; width:100%; text-align: center;
+    margin-left:0px; margin-bottom:-1px;
+    }
+
+</style>
+
+</head>
+<body>
+
+<script type="text/javascript">
+
+function FuncRequest(cate) {
+	var param = "p_cate="+cate;
+
+	$.ajax({
+		url: "ranking_top10.php",
+		type: "POST",
+		data: param,
+		contentType: "application/x-www-form-urlencoded; charset=euc-kr",
+		dataType: "json",
+		success: function(data, textStatus, jqXHR ) {
+			FuncCallback(data);
+		},
+		error: function(jqXHR, textStatus, errorThrown ) {
+			alert("통신에러:"+textStatus);
+		}
+	});
+}
+
+function FuncCallback(data) {
+	// 아래 두 줄은 단순히, 원본 데이터를 확인하기 위해 사용됨
+	var jsonText = JSON.stringify(data);
+	
+	$('#idList').html("");
+	var tr = "<tr><th>번호</th><th>제품명</th><th>샾이름</th></tr>";
+	// 테이블에 목록 추가
+	if (data != null && data.length > 1) {
+		for (var i = 0; i < data.length; i++) {
+			tr += "<tr>";
+			tr += "	<td>" + data[i].p_idx + "</td>";
+			tr += "	<td>" + decodeURIComponent(data[i].p_title.replace(/\+/g, ' ')) + "</td>";
+			tr += "	<td>" + decodeURIComponent(data[i].shop_name.replace(/\+/g, ' ')) + "</td>";
+			tr += "</tr>";
+		}
+	}
+	$('#idList').append(tr);
+}
+
+</script>
+
+<div id="wrapper">
+<div id="content">
+
+<table width="100%" height="100%" border="0" align="top">
+	<tr>
+		<td>
+<table id="idList" width="100%" border="1">
+	<tr>
+		<th align="center">번호</th>
+		<th align="center">제품명</th>
+		<th align="center">샾이름</th>
+	</tr>
+</table>
+		</td>
+	</tr>
+</table>
+
+</div>
+</div>
+<div id="footer">
+	<table width="100%" height="100%" align="center">
+		<tr>
+			<td width="20%" height="100%" align="center" style="cursor:pointer;background-color: #000000;" onClick="FuncRequest('T')"><font color="#FFFFFF">상의</font></td>
+			<td width="20%" height="100%" align="center" style="cursor:pointer;background-color: #000000;" onClick="FuncCallback('B')"><font color="#FFFFFF">하의</font></td>
+			<td width="20%" height="100%" align="center" style="cursor:pointer;background-color: #000000;" onClick="FuncRequest('O')"><font color="#FFFFFF">아웃웨어</font></td>
+			<td width="20%" height="100%" align="center" style="cursor:pointer;background-color: #000000;" onClick="FuncRequest('U')"><font color="#FFFFFF">언더웨어</font></td>
+			<td width="20%" height="100%" align="center" style="cursor:pointer;background-color: #000000;" onClick="FuncRequest('A')"><font color="#FFFFFF">엑세서리</font></td>
+		</tr>
+	</table>
+
+</div>
+
+</body>
+</html>
